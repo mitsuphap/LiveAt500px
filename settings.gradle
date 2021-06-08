@@ -1,0 +1,2 @@
+rootProject.name = "LiveAt500px"
+include ':app',':TheCheeseLibrary'
