@@ -8,27 +8,40 @@
     tools:context=".activity.MainActivity">
 
     <!-- Content -->
-    <FrameLayout
-        android:id="@+id/contentContainer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <FrameLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <!-- Menu -->
     <LinearLayout
+        android:layout_width="@dimen/drawer_menu_width"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_width="@dimen/drawer_menu_width"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <Button
-            android:text="Sample Button"
-            android:contentDescription="Sample Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:contentDescription="Sample Button"
+            android:text="Sample Button" />
 
     </LinearLayout>
-
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
