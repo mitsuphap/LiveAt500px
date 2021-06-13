@@ -4,16 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.liveat500px.R;
+import com.example.liveat500px.adapter.PhotoListAdapter;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class MainFragment extends Fragment {
+
+    ListView listView;
+    PhotoListAdapter listAdapter;
 
     public MainFragment() {
         super();
@@ -36,6 +41,9 @@ public class MainFragment extends Fragment {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        listAdapter = new PhotoListAdapter();
+        listView.setAdapter(listAdapter);
     }
 
     @Override
