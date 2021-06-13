@@ -25,32 +25,13 @@ public class PhotoListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position % 2 == 0 ? 0 : 1;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (getItemViewType(position) == 0) {
-            PhotoListItem item;
-            if (convertView != null)
-                item = (PhotoListItem) convertView;
-            else
-                item = new PhotoListItem(parent.getContext());
-            return item;
-        } else {
-            TextView item;
-            if (convertView != null)
-                item = (TextView) convertView;
-            else
-                item = new TextView(parent.getContext());
-            item.setText("Position: " + position);
-            return item;
-        }
+        PhotoListItem item;
+        if (convertView != null)
+            item = (PhotoListItem) convertView;
+        else
+            item = new PhotoListItem(parent.getContext());
+        return item;
+
     }
 }
