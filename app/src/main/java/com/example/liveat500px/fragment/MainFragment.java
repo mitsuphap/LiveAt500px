@@ -5,11 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.liveat500px.R;
 import com.example.liveat500px.adapter.PhotoListAdapter;
+import com.example.liveat500px.dao.PhotoItemCollectionDao;
+import com.example.liveat500px.manager.HttpManager;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -44,6 +53,38 @@ public class MainFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.listView);
         listAdapter = new PhotoListAdapter();
         listView.setAdapter(listAdapter);
+
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
+        call.enqueue(new Callback<PhotoItemCollectionDao>() {
+            @Override
+            public void onResponse(Call<PhotoItemCollectionDao> call,
+                                   Response<PhotoItemCollectionDao> response) {
+                if (response.isSuccess()){
+                    PhotoItemCollectionDao dao = response.body();
+                    Toast.makeText(getActivity(),
+                            dao.getData().get(0).getCaption(),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle
+                    try {
+                        Toast.makeText(getActivity(),
+                                response.errorBody().string(),
+                                Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoItemCollectionDao> call,
+                                  Throwable t) {
+                // Handle
+                Toast.makeText(getActivity(),
+                        t.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
