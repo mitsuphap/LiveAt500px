@@ -13,6 +13,7 @@ import com.example.liveat500px.R;
 import com.example.liveat500px.adapter.PhotoListAdapter;
 import com.example.liveat500px.dao.PhotoItemCollectionDao;
 import com.example.liveat500px.manager.HttpManager;
+import com.example.liveat500px.manager.PhotoListManager;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.io.IOException;
@@ -62,6 +63,8 @@ public class MainFragment extends Fragment {
                                    Response<PhotoItemCollectionDao> response) {
                 if (response.isSuccess()){
                     PhotoItemCollectionDao dao = response.body();
+                    PhotoListManager.getInstance().setDao(dao);
+                    listAdapter.notifyDataSetChanged();
                     Toast.makeText(Contextor.getInstance().getContext(),
                             dao.getData().get(0).getCaption(),
                             Toast.LENGTH_SHORT).show();
