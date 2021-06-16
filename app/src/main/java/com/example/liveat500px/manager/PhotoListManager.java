@@ -5,9 +5,6 @@ import android.content.Context;
 import com.example.liveat500px.dao.PhotoItemCollectionDao;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 public class PhotoListManager {
 
     private static PhotoListManager instance;

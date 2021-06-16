@@ -12,9 +12,6 @@ import com.example.liveat500px.R;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 public class PhotoListItem extends BaseCustomViewGroup {
 
     TextView tvName;
