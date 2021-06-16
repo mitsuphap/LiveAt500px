@@ -101,7 +101,7 @@ public class PhotoListItem extends BaseCustomViewGroup {
                 height,
                 MeasureSpec.EXACTLY
         );
-        //send to Child Views (หลอกลูก)
+        //send to Child Views (ส่งไปหลอกลูก ๆ ทั้งหลาย)
         super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
         //send to self (หลอกตัวเอง)
         setMeasuredDimension(width, height);
