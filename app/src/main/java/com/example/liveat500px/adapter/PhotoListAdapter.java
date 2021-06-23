@@ -22,6 +22,7 @@ public class PhotoListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+        // for provide data
         return PhotoListManager.getInstance().getDao().getData().get(position);
     }
 

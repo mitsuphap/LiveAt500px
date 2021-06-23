@@ -65,7 +65,7 @@ public class MainFragment extends Fragment {
                             dao.getData().get(0).getCaption(),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    // Handle
+                    // Handle not success
                     try {
                         Toast.makeText(Contextor.getInstance().getContext(),
                                 response.errorBody().string(),
@@ -79,7 +79,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onFailure(Call<PhotoItemCollectionDao> call,
                                   Throwable t) {
-                // Handle
+                // Handle cannot connect with server
                 Toast.makeText(Contextor.getInstance().getContext(),
                         t.toString(),
                         Toast.LENGTH_SHORT).show();
