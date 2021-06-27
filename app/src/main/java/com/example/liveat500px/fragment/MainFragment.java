@@ -31,6 +31,8 @@ public class MainFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
 
+    PhotoListManager photoListManager;
+
     public MainFragment() {
         super();
     }
@@ -51,6 +53,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
+        photoListManager = new PhotoListManager();
         // Init 'View' instance(s) with rootView.findViewById here
         listView = (ListView) rootView.findViewById(R.id.listView);
         listAdapter = new PhotoListAdapter();
@@ -60,7 +63,7 @@ public class MainFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reloadData();
+                refreshData();
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -78,7 +81,56 @@ public class MainFragment extends Fragment {
             }
         });
 
-        reloadData();
+        refreshData();
+    }
+
+    private void refreshData() {
+        if (photoListManager.getCount() == 0)
+            reloadData();
+        else
+            reloadDataNewer();
+
+    }
+
+    private void reloadDataNewer() {
+        int maxId = photoListManager.getMaximumId();
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance()
+                .getService()
+                .loadPhotoListAfterId(maxId);
+        call.enqueue(new Callback<PhotoItemCollectionDao>() {
+            @Override
+            public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
+                swipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccess()){
+                    PhotoItemCollectionDao dao = response.body();
+                    photoListManager.setDao(dao);
+                    listAdapter.setDao(dao);
+                    listAdapter.notifyDataSetChanged();
+                    Toast.makeText(Contextor.getInstance().getContext(),
+                            "Load Completed",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle not success
+                    try {
+                        Toast.makeText(Contextor.getInstance().getContext(),
+                                response.errorBody().string(),
+                                Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoItemCollectionDao> call, Throwable t) {
+                // Handle cannot connect with server
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(Contextor.getInstance().getContext(),
+                        t.toString(),
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     private void reloadData() {
@@ -90,17 +142,20 @@ public class MainFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccess()){
                     PhotoItemCollectionDao dao = response.body();
+                    photoListManager.setDao(dao);
                     listAdapter.setDao(dao);
                     listAdapter.notifyDataSetChanged();
                     Toast.makeText(Contextor.getInstance().getContext(),
                             dao.getData().get(0).getCaption(),
-                            Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_SHORT).
+                            show();
                 } else {
                     // Handle not success
                     try {
                         Toast.makeText(Contextor.getInstance().getContext(),
                                 response.errorBody().string(),
-                                Toast.LENGTH_SHORT).show();
+                                Toast.LENGTH_SHORT)
+                                .show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
