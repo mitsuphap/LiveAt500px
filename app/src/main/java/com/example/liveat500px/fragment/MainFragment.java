@@ -110,7 +110,7 @@ public class MainFragment extends Fragment {
     class PhotoListLoadCallback implements Callback<PhotoItemCollectionDao> {
 
         public static final int MODE_RELOAD = 1;
-        public static final int MODE_RELOAD_NEWER = 1;
+        public static final int MODE_RELOAD_NEWER = 2;
 
         int mode;
 
