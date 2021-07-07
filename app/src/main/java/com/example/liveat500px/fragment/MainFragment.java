@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -56,6 +57,18 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Initialize Fragment level's variables
+        photoListManager = new PhotoListManager();
+
+        if (savedInstanceState != null)
+            onRestoreInstanceState(savedInstanceState); //Restore Instance State
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -64,8 +77,6 @@ public class MainFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
-        photoListManager = new PhotoListManager();
-
         btnNewPhotos = (Button) rootView.findViewById(R.id.btnNewPhotos);
         btnNewPhotos.setOnClickListener(buttonClickListener);
 
@@ -134,6 +145,11 @@ public class MainFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save Instance State here
+        //TODO : Save PhotoListManager to outState
+    }
+
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        //Restore instance state here
     }
 
     /*
@@ -142,9 +158,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            // Restore Instance State here
-        }
     }
 
     private void showButtonNewPhotos() {
