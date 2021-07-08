@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.liveat500px.R;
 import com.example.liveat500px.adapter.PhotoListAdapter;
 import com.example.liveat500px.dao.PhotoItemCollectionDao;
+import com.example.liveat500px.datatype.MutableInteger;
 import com.example.liveat500px.manager.HttpManager;
 import com.example.liveat500px.manager.PhotoListManager;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
@@ -40,6 +41,7 @@ public class MainFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
 
     PhotoListManager photoListManager;
+    MutableInteger lastPositionInteger;
 
     /*********************
      *  Functions
@@ -78,6 +80,7 @@ public class MainFragment extends Fragment {
 
     private void init(Bundle savedInstanceState) {
         photoListManager = new PhotoListManager();
+        lastPositionInteger = new MutableInteger(-1);
     }
 
     private void initInstances(View rootView, Bundle savedInstanceState) {
@@ -86,7 +89,7 @@ public class MainFragment extends Fragment {
 
         // Init 'View' instance(s) with rootView.findViewById here
         listView = (ListView) rootView.findViewById(R.id.listView);
-        listAdapter = new PhotoListAdapter();
+        listAdapter = new PhotoListAdapter(lastPositionInteger);
         listAdapter.setDao(photoListManager.getDao());
         listView.setAdapter(listAdapter);
 
@@ -152,12 +155,16 @@ public class MainFragment extends Fragment {
         // Save Instance State here
         outState.putBundle("photoListManager",
                 photoListManager.onSaveInstanceState());
+        outState.putBundle("lastPositionInteger",
+                lastPositionInteger.onSaveInstanceState());
     }
 
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         //Restore instance state here
         photoListManager.onRestoreInstanceState(
                 savedInstanceState.getBundle("photoListManager"));
+        lastPositionInteger.onRestoreInstanceState(
+                savedInstanceState.getBundle("lastPositionInteger"));
     }
 
     /*
