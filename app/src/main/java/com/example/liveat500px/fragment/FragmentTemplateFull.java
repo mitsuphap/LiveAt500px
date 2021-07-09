@@ -1,4 +1,4 @@
-package com.inthecheesefactory.thecheeselibrary.fragment;
+package com.example.liveat500px.fragment;
 
 import android.os.Bundle;
 
@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.inthecheesefactory.thecheeselibrary.R;
+import com.example.liveat500px.R;
 
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by nuuneoi on 11/16/2014.
