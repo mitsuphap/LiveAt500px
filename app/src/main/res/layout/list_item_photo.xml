@@ -40,5 +40,10 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@drawable/selector_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </RelativeLayout>
