@@ -7,16 +7,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.liveat500px.R;
+import com.example.liveat500px.dao.PhotoItemDao;
 import com.example.liveat500px.fragment.MainFragment;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MainFragment.FragmentListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -75,5 +78,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPhotoItemClicked(PhotoItemDao dao) {
+        Intent intent = new Intent(MainActivity.this,
+                MoreInfoActivity.class);
+        startActivity(intent);
     }
 }
