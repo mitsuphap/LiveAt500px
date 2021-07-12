@@ -17,7 +17,6 @@ import com.example.liveat500px.R;
  */
 public class MoreInfoFragment extends Fragment {
 
-    TextView tvMoreInfo;
 
     public MoreInfoFragment() {
         super();
@@ -42,7 +41,7 @@ public class MoreInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_more_info, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_more_info, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -57,7 +56,6 @@ public class MoreInfoFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
-        tvMoreInfo = rootView.findViewById(R.id.tvMoreInfo);
     }
 
     @Override
