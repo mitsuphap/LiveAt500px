@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.liveat500px.R;
+
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -17,6 +23,7 @@ import com.example.liveat500px.R;
  */
 public class MoreInfoFragment extends Fragment {
 
+    ViewPager viewPager;
 
     public MoreInfoFragment() {
         super();
@@ -56,6 +63,33 @@ public class MoreInfoFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
+        viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
+        viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return 3;
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull @NotNull View view, @NonNull @NotNull Object object) {
+                return view == object;
+            }
+
+            @NonNull
+            @NotNull
+            @Override
+            public Object instantiateItem(@NonNull @NotNull ViewGroup container, int position) {
+                Button btn = new Button(container.getContext());
+                btn.setText("Position: " + position);
+                container.addView(btn);
+                return btn;
+            }
+
+            @Override
+            public void destroyItem(@NonNull @NotNull ViewGroup container, int position, @NonNull @NotNull Object object) {
+                container.removeView((View) object);
+            }
+        });
     }
 
     @Override
