@@ -4,34 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.liveat500px.R;
-
-import org.jetbrains.annotations.NotNull;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class MoreInfoFragment extends Fragment {
+public class PhotoSummaryFragment extends Fragment {
 
-    ViewPager viewPager;
-
-    public MoreInfoFragment() {
+    public PhotoSummaryFragment() {
         super();
     }
 
-    public static MoreInfoFragment newInstance() {
-        MoreInfoFragment fragment = new MoreInfoFragment();
+    public static PhotoSummaryFragment newInstance() {
+        PhotoSummaryFragment fragment = new PhotoSummaryFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -49,7 +39,7 @@ public class MoreInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_more_info, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_photo_summary, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -64,31 +54,6 @@ public class MoreInfoFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
-        viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
-        viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-            @NonNull
-            @NotNull
-            @Override
-            public Fragment getItem(int position) {
-                switch (position){
-                    case 0:
-                        return PhotoSummaryFragment.newInstance();
-                    case 1:
-                        return PhotoInfoFragment.newInstance();
-                    case 2:
-                        return PhotoTagsFragment.newInstance();
-                    default:
-                        return null;
-                }
-
-            }
-
-            @Override
-            public int getCount() {
-                return 3;
-            }
-        });
-
     }
 
     @Override
