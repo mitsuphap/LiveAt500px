@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.liveat500px.R;
+import com.inthecheesefactory.thecheeselibrary.view.SlidingTabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class MoreInfoFragment extends Fragment {
 
     ViewPager viewPager;
+    private SlidingTabLayout slidingTabLayout;
 
     public MoreInfoFragment() {
         super();
@@ -87,7 +89,26 @@ public class MoreInfoFragment extends Fragment {
             public int getCount() {
                 return 3;
             }
+
+            @Nullable
+            @org.jetbrains.annotations.Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position){
+                    case 0:
+                        return "Summary";
+                    case 1:
+                        return "Info";
+                    case 2:
+                        return "Tags";
+                    default:
+                        return "";
+                }
+            }
         });
+
+        slidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
+        slidingTabLayout.setViewPager(viewPager);
 
     }
 
