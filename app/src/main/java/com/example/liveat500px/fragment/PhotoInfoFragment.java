@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.liveat500px.R;
+import com.example.liveat500px.dao.PhotoItemDao;
 
 
 /**
@@ -16,13 +17,16 @@ import com.example.liveat500px.R;
  */
 public class PhotoInfoFragment extends Fragment {
 
+    PhotoItemDao dao;
+
     public PhotoInfoFragment() {
         super();
     }
 
-    public static PhotoInfoFragment newInstance() {
+    public static PhotoInfoFragment newInstance(PhotoItemDao dao) {
         PhotoInfoFragment fragment = new PhotoInfoFragment();
         Bundle args = new Bundle();
+        args.putParcelable("dao", dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,6 +35,8 @@ public class PhotoInfoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
+
+        dao = getArguments().getParcelable("dao");
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
