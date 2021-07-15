@@ -2,6 +2,8 @@ package com.example.liveat500px.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -65,6 +67,7 @@ public class MoreInfoFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
+        setHasOptionsMenu(true);
     }
 
     @SuppressWarnings("UnusedParameters")
@@ -129,4 +132,9 @@ public class MoreInfoFragment extends Fragment {
         // Restore Instance (Fragment level's variables) State here
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_more_info, menu);
+    }
 }
